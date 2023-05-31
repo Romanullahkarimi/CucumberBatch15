@@ -1,0 +1,28 @@
+when we use excel sheet we have to download apaci poi from maven
+
+why we use it?
+To handle large amount of data .
+Or data shared by Database team and we need to run our scripts .
+ We choose ExcelSheet
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+===========================================================
+  taking screenshot steps
+ 1: (commons io )dependency should download from maven for screenshot
+ and paste in pom.xml
+
+
+ method for screenshot
+
