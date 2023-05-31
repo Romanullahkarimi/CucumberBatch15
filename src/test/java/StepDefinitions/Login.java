@@ -21,7 +21,7 @@ public class Login extends CommonMethods {
     }
 
 
-    @When("User enters valid email and valid password")
+    @When("user enters valid email and valid password")
     public void user_enters_valid_email_and_valid_password() {
         //LoginPage login = new LoginPage();
         sendText(login.usernameTextBox, ConfigReader.getPropertyValue("username"));

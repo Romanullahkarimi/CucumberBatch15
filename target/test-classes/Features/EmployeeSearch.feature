@@ -1,8 +1,10 @@
 Feature: Searching the employee
+
   Background:
-    When User enters valid email and valid password
+    When user enters valid email and valid password
     And click on login button
-   # When user clicks on PIM option
+    When user clicks on PIM option
+
   @smoke1
   Scenario: Search Employee by Id
     #Given open the browser and launch HRMS application
@@ -13,12 +15,18 @@ Feature: Searching the employee
     And Clicks on search button
     And user see employee information is displayed
     #And Close the browser
-  @smoke
-    Scenario: Search Employee by Job Title
-     # Given open the browser and launch HRMS application
-     # When user enter valid email and valid password
-    #  And click on login button
-     #When :user click on PIM option
-      When user select Job Title
+
+  @smoke1
+  Scenario: Search Employee by Job Title
+    #Given open the browser and launch HRMS application
+#    When user enters valid email and valid password
+#    And click on login button
+#    When user clicks on PIM option
+    When user select Job Title
     And Clicks on search button
-      And user see employee information is displayed
+    And user see employee information is displayed
+    #And Close the browser
+
+
+  # Background: This is used to define all the common steps that multiple
+  #             scenarios have in the same feature file, till the time flow is not broken

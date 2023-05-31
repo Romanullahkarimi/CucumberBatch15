@@ -1,7 +1,7 @@
 Feature: Employee
 
   Background:
-    When User enters valid email and valid password
+    When user enters valid email and valid password
     And click on login button
     When user clicks on PIM option
     And user clicks on add employee button
