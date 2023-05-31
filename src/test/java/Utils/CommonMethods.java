@@ -23,14 +23,12 @@ import java.util.List;
 
 public class CommonMethods extends PageInitializer {
     public static WebDriver driver;
-    private static File sourcePath;
 
     public static void openBrowserAndLaunchApplication() {
-
         ConfigReader.readProperties();
+
         String browserType = ConfigReader.getPropertyValue("browserType");
         switch (browserType) {
-
             case "Chrome":
                 ChromeOptions ops = new ChromeOptions();
                 ops.addArguments("--no-sandbox");
@@ -40,42 +38,44 @@ public class CommonMethods extends PageInitializer {
                 }
                 driver = new ChromeDriver(ops);
                 break;
-            case "FireFox":
+
+            case "Firefox":
                 driver = new FirefoxDriver();
                 break;
+
             case "IE":
                 driver = new InternetExplorerDriver();
                 break;
-            default:
-                driver = new ChromeDriver();
 
+            default:
+                driver = new EdgeDriver();
                 break;
 
         }
-        // driver.manage().window().maximize();
+
+        driver.manage().window().maximize();
         driver.get(ConfigReader.getPropertyValue("url"));
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Constants.WAIT_TIME));
-        initializePageObjects();//this will initialize all the page we have in our page
-        //pageInitializerPageObject  class along with the launching
-
-        //to config
+        initializePageObjects(); // This will initialize all the pages we have in our Page
+        //PageInitializer class along with the launching of application
+        // To configure the File and pattern it has
         DOMConfigurator.configure("log4j.xml");
         Log.startTestCase("This is the beginning of my Test case");
         Log.info("My test case is executing right now");
         Log.warning("My test case might have some trivial issues");
-
     }
 
 
-    public static void closeBrowser() {
+    public static void closeBrowser()
+    {
         Log.info("This test case is about to get completed");
         Log.endTestCase("This test case is finished");
         driver.close();
     }
 
+
     public static void doClick(WebElement element) {
         element.click();
-
     }
 
     public static void sendText(WebElement element, String text) {
@@ -88,8 +88,8 @@ public class CommonMethods extends PageInitializer {
         return select;
     }
 
-    public static void selectByValue(WebElement element, String Value) {
-        clickOnDropdown(element).selectByValue(Value);
+    public static void selectByValue(WebElement element, String value) {
+        clickOnDropdown(element).selectByValue(value);
     }
 
     public static void selectByVisibleText(WebElement element, String text) {
@@ -100,30 +100,31 @@ public class CommonMethods extends PageInitializer {
         clickOnDropdown(element).selectByIndex(index);
     }
 
-    public static void selectByOption(WebElement element, String text) {
+    public static void selectByOptions(WebElement element, String text) {
         List<WebElement> options = clickOnDropdown(element).getOptions();
         for (WebElement option : options) {
-            String ddlOption = option.getText();
-            if (ddlOption.equals(text)) {
+            String ddlOptionText = option.getText();
+            if (ddlOptionText.equals(text)) {
                 option.click();
             }
         }
-
     }
-    //screenshot
 
-    public static byte[] takeScreenshot(String imageName) {
+    //========================SCREENSHOT ===============================
+
+    public static byte[] takeScreenshot(String imageName)
+    {
         // This casts the webDriver instance 'driver' to TakeScreenshot Interface
-        TakesScreenshot ts = (TakesScreenshot) driver;
+        TakesScreenshot ts = (TakesScreenshot)driver;
 
         //This captures the screenshot and stores it as byte array
-        byte[] picBytes = ts.getScreenshotAs(OutputType.BYTES);
+        byte[] picBytes=ts.getScreenshotAs(OutputType.BYTES);
 
         //This captures the screenshot and stores it as a file in the sourceFile variable
-        File sourcePath = ts.getScreenshotAs(OutputType.FILE);
+        File sourcePath=ts.getScreenshotAs(OutputType.FILE);
 
         try {
-            FileUtils.copyFile(sourcePath, new File(Constants.SCREENSHOT_FILEPATH + imageName + getTimeStamp("yyyy-MM-dd-HH-mm-ss") + ".png"));
+            FileUtils.copyFile(sourcePath, new File(Constants.SCREENSHOT_FILEPATH+imageName+getTimeStamp("yyyy-MM-dd-HH-mm-ss")+".png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -131,9 +132,11 @@ public class CommonMethods extends PageInitializer {
     }
 
 
-    public static String getTimeStamp(String pattern) {
+    public  static  String getTimeStamp(String pattern)
+    {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
     }
+
 }
